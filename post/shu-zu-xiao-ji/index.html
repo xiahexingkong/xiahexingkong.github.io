@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>数组小计 | 夏河星空的小站</title>
+<meta name="description" content="温故而知新，我学ABC!">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://xiahexingkong.github.io/favicon.ico?v=1667662941869">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://xiahexingkong.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://xiahexingkong.github.io">夏河星空的小站</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>数组小计</h1>
+            <p class="article-meta">
+              2022-03-20
+              
+            </p>
+            
+            <div class="post-content">
+              <pre><code class="language-C++">//一维数组定义
+    int n=100;
+    int number[n];//c中不可以使用变量定义数组长度
+    int years[6]={2012,2013,2014,2015,2016,2017};//前后声明一致
+    int months[12]={1,3,5,7,9};//未赋值则整型默认初始化为0
+    int days[]={1,15};//C++11标准中：int days[]{1,15};float m[100]{};
+</code></pre>
+<pre><code class="language-C++">//动态输入信息并赋值
+    const int N=5;
+    int nums[N];
+    cout&lt;&lt;&quot;数组的大小：&quot;&lt;&lt;sizeof(nums)/sizeof(int)&lt;&lt;endl;//可以计算数组长度(string类型无效)
+    for(int i=;i&lt;sizeof(nums)/sizeof(int);i++){
+        cout&lt;&lt;&quot;请输入第&quot;&lt;&lt;(i+1)&lt;&lt;&quot;个数组元素&quot;&lt;&lt;endl;
+        cin&gt;&gt;nums[i];
+    }
+</code></pre>
+<pre><code class="language-C++">//数组查找
+    int nums[]={8,4,12,32,485,123};
+    int numsLengs=sizeof(nums)/sizeof(int);
+    int searchNum;
+    int searchIndex=-1;//搜索标记变量
+    cin&gt;&gt;searchNum;
+    for(int i=0;i&lt;numsLengs;i++){
+        if(nums[i]==searchNum){
+            searchIndex=i;
+        }
+    }
+    //检查搜索标志是否改变
+    if(searchIndex==-1){
+        cout&lt;&lt;&quot;未搜索到指定数字&quot;&lt;&lt;endl;
+    }else{
+        cout&lt;&lt;&quot;成功找到:&quot;&lt;&lt;searchIndex&lt;&lt;endl;
+    }
+</code></pre>
+<pre><code class="language-C++">//冒泡排序
+    int nums[]={8,4,12,32,485,123};
+    int leng=sizeof(nums)/sizeof(nums[0]);
+    cout&lt;&lt;leng&lt;&lt;endl;
+    int temp;
+    for(int i=0;i&lt;leng-1;i++){          //需要进项5次冒泡,一次循环出现一次结果(类似实时打榜)
+        for(int j=0;j&lt;leng-1-i;j++){    //需注意对循环变量的控制，每出现一个结果减少一次冒泡交换
+            if(nums[j]&lt;nums[j+1]){      //冒泡交换
+                temp=nums[j];
+                nums[j]=nums[j+1];
+                nums[j+1]=temp;
+                cout&lt;&lt;nums[j]&lt;&lt;&quot;\t&quot;&lt;&lt;nums[j+1]&lt;&lt;&quot;\t&quot;&lt;&lt;&quot;第&quot;&lt;&lt;j+1&lt;&lt;&quot;次&quot;&lt;&lt;endl;
+            }
+        }
+    }
+    cout&lt;&lt;&quot;输出排序结果&quot;&lt;&lt;endl;
+    for(int i=0;i&lt;leng;i++){
+        cout&lt;&lt;nums[i]&lt;&lt;&quot;\t&quot;;
+    }
+</code></pre>
+<pre><code class="language-C++">//选择排序
+    int nums[]={8,4,12,32,485,123};
+    int leng=sizeof(nums)/sizeof(nums[0]);
+    cout&lt;&lt;leng&lt;&lt;endl;
+    int min=nums[0];//假定第一位为最小值
+    int minIndex=0;
+    int temp;
+    for(int i=0;i&lt;leng-1;i++){
+        min=nums[i];//每次新定榜首(拿过榜首的除外)
+        minIndex=i;
+        for(int j=i+1;j&lt;leng;j++){
+            if(nums[j]&lt;nums[i]){//最小值比较,谁小谁为王
+                min=nums[j];
+                minIndex=j;
+                //榜上有名，记录上榜
+            }
+        }//循环结束本轮榜首出现，原榜首下去吧你
+        if(minIndex!=i){//利用榜名检测是否需要交换
+            temp=nums[i];
+            nums[i]=nums[minIndex];
+            nums[minIndex]=temp;
+        }
+        cout&lt;&lt;nums[i]&lt;&lt;&quot;\t&quot;&lt;&lt;&quot;\t&quot;&lt;&lt;&quot;第&quot;&lt;&lt;i+1&lt;&lt;&quot;次&quot;&lt;&lt;endl;
+    }
+    cout&lt;&lt;&quot;输出排序结果&quot;&lt;&lt;endl;
+    for(int i=0;i&lt;leng;i++){
+        cout&lt;&lt;nums[i]&lt;&lt;&quot;\t&quot;;
+    }
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://xiahexingkong.github.io/post/web1/">
+                <h3 class="post-title">
+                  WEB（1）
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://xiahexingkong.github.io/images/avatar.png?v=1667662941869" class="no-responsive avatar">
+    <div class="text-muted">温故而知新，我学ABC!</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/linux-xue-xi-zhi-lu/">Linux学习之路</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-wen-jian-chu-li-lou-dong/">WEB-文件处理漏洞</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-sql-zhu-ru/">WEB-SQL注入 </a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-ji-cheng/">JAVA继承①</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/shu-zu-xiao-ji/">数组小计</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web1/">WEB（1）</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java4/">JAVA语言(4)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java3/">JAVA语言(3)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java/">JAVA语言(2)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-yu-yan/">JAVA语言(1)</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://xiahexingkong.github.io/tag/vQG51Jn_T/" class="badge success">
+          JAVA
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/Arbe0nnRP/" class="badge ">
+          CTF
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/V388Fozdg/" class="badge ">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">张猛威</a> | <a class="rss" href="https://xiahexingkong.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '27490f3f7854209c2d01',
+        clientSecret: '91f2cf8a4a88ad7dc948433ca4268f83bfe10be4',
+        repo: 'xiahexingkong.github.io',
+        owner: 'xiahexingkong',
+        admin: ['xiahexingkong'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>JAVA语言(1) | 夏河星空的小站</title>
+<meta name="description" content="温故而知新，我学ABC!">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://xiahexingkong.github.io/favicon.ico?v=1667662941869">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://xiahexingkong.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://xiahexingkong.github.io">夏河星空的小站</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>JAVA语言(1)</h1>
+            <p class="article-meta">
+              2022-01-27
+              
+                <a href="https://xiahexingkong.github.io/tag/vQG51Jn_T/" class="badge ">
+                  JAVA
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>⭐️for循环，boolean类型</p>
+<!-- more -->
+<p>🏳️‍🌈for循环<br>
+例：输出100以内的素数。</p>
+<pre><code>for(int n=2;n&lt;100;n++){
+    int flag=0;
+    for(int i=2;i*i&lt;=n;i++){
+        if(n%i==0){
+            flag=1; //当判断n为质数，标记
+            break;  //跳出当前循环判断下一个n
+        }
+    }
+    if(flag==1){    //根据判断n是否被标记来输出
+    }
+    else{
+        System.out.println(n+&quot;是素数&quot;);
+    }
+}
+</code></pre>
+<p>例：输出前50个素数。</p>
+<pre><code>int cout=0;              //计数标志
+for(int n=2;cout&lt;50;n++){//[0~50)个计数循环共50个
+    int flag=0;
+    for(int i=2;i*i&lt;=n;i++){
+        if(n%i==0){
+            flag=1;      //当判断n为质数，标记
+            break;       //跳出当前循环判断下一个n
+        }
+    }
+    if(flag==1){         //根据判断n是否被标记来输出
+    }
+    else{
+        cout=cout+1;
+        System.out.println(&quot;第&quot;+cout+&quot;素数是：&quot;+n);
+    }
+}
+</code></pre>
+<p>🏳️‍🌈boolean类型</p>
+<!-- more -->
+<p>例：boolean a=ture;//布尔类型定义<br>
+布尔类型逻辑运算：<br>
+①  !a      (逻辑非)<br>
+②a&amp;&amp;b(逻辑与)<br>
+③a||b    (逻辑或)<br>
+逻辑运算优先级：!&gt;&amp;&amp;&gt;||<br>
+例：表达数学中的区间x∈(4,6)，x∈[4,6]<br>
+答：①x&gt;4&amp;&amp;x&lt;6           ②x&gt;=4&amp;&amp;x&lt;=6<br>
+<img src="https://xiahexingkong.github.io/post-images/1643277079277.png" alt="" loading="lazy"></p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://xiahexingkong.github.io/post/mi-ma-xue/">
+                <h3 class="post-title">
+                  密码学(1)
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://xiahexingkong.github.io/images/avatar.png?v=1667662941869" class="no-responsive avatar">
+    <div class="text-muted">温故而知新，我学ABC!</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/linux-xue-xi-zhi-lu/">Linux学习之路</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-wen-jian-chu-li-lou-dong/">WEB-文件处理漏洞</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-sql-zhu-ru/">WEB-SQL注入 </a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-ji-cheng/">JAVA继承①</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/shu-zu-xiao-ji/">数组小计</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web1/">WEB（1）</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java4/">JAVA语言(4)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java3/">JAVA语言(3)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java/">JAVA语言(2)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-yu-yan/">JAVA语言(1)</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://xiahexingkong.github.io/tag/vQG51Jn_T/" class="badge success">
+          JAVA
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/Arbe0nnRP/" class="badge warning">
+          CTF
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/V388Fozdg/" class="badge warning">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">张猛威</a> | <a class="rss" href="https://xiahexingkong.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '27490f3f7854209c2d01',
+        clientSecret: '91f2cf8a4a88ad7dc948433ca4268f83bfe10be4',
+        repo: 'xiahexingkong.github.io',
+        owner: 'xiahexingkong',
+        admin: ['xiahexingkong'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

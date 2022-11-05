@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>JAVA语言(2) | 夏河星空的小站</title>
+<meta name="description" content="温故而知新，我学ABC!">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://xiahexingkong.github.io/favicon.ico?v=1667662941869">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://xiahexingkong.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://xiahexingkong.github.io">夏河星空的小站</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>JAVA语言(2)</h1>
+            <p class="article-meta">
+              2022-01-28
+              
+                <a href="https://xiahexingkong.github.io/tag/vQG51Jn_T/" class="badge ">
+                  JAVA
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>⭐️数组,for each循环</p>
+<!-- more -->
+<p>🏳️‍🌈数组<br>
+🔶数组定义：</p>
+<pre><code>int[] a={12,12334,213};
+int b=scnner.nextInt();
+int[] a=new int [b];    //a为数组名,b为数组大小,是具体的数或整型变量
+                                    //new方式创建的数组有默认的0值
+</code></pre>
+<p>🔶数组的函数：</p>
+<pre><code>for(int i=0;i&lt;a.length;i++){
+    //方便的对指定的数组遍历
+}
+</code></pre>
+<p>🏴例：输入指定个数的整数，求出平均数，并将大于平均数的值输出。</p>
+<pre><code>Scanner in =new Scanner(System.in);
+int x=in.nextInt();
+double sum=0.0,avage;
+int [] numbers=new int [x];
+for(int i=0;i&lt;numbers.length;i++){//对数组的遍历，提高程序的可扩展性
+    int n=in.nextInt();
+    numbers[i]=n;
+    sum+=numbers[i];
+}
+avage=sum/x;
+for(int i=0;i&lt;numbers.length;i++){
+    if(numbers[i]&gt;=avage){
+        System.out.println(numbers[i]);
+    }
+}
+System.out.println(avage);
+</code></pre>
+<p>🔶数组的赋值：</p>
+<pre><code>int a[0]=8;
+int[] b=a;//赋值:传递的是地址；
+System.out.ptintln(b[0]);
+</code></pre>
+<p>🔶数组的拷贝：</p>
+<pre><code>int a[]={12,23,34,56};
+int[] b=new int[a.length];
+for(int i=0;i&lt;a.length;i++){
+    b[i]=a[i];
+}
+for(int i=0;i&lt;b.length;i++){
+    System.out.println(b[i]);
+}
+</code></pre>
+<p>🔶数组的遍历：</p>
+<pre><code>int a[]={12,23,34,45};
+for(int k: a){//foreach循环:每次从a中依次取一个数据传给k
+    System.out.println(k);
+}
+</code></pre>
+<p>🔶素数遍历判断：<br>
+例:输出100以内的素数。</p>
+<pre><code>boolean []numbers=new boolean[100];
+for(int i=0;i&lt;numbers.length;i++){
+    numbers[i]=true;
+}
+for(int i=2;i&lt;numbers.length;i++){
+    if(numbers[i]==true)
+        for(int j=2;j*i&lt;numbers.length;j++){
+            numbers[i*j]=false;
+        }
+}
+for(int i=2;i&lt;numbers.length;i++){
+    if(numbers[i]==true){
+        System.out.println(i);
+    }
+}
+</code></pre>
+<p>例:输出50个素数：</p>
+<pre><code>int []numbers=new int[50];
+numbers[0]=2;
+int cnt=1;
+OUT_for:
+for(int i=3;cnt&lt;50;i++){    //限制素数的个数
+    for(int j=0;j&lt;cnt;j++){
+        if(i%numbers[j]==0){
+            continue OUT_for;
+        }
+    }
+    numbers[cnt++]=i;
+}
+for(int k:numbers){
+    System.out.println(k);
+}
+</code></pre>
+<p>🏳️</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://xiahexingkong.github.io/post/java-yu-yan/">
+                <h3 class="post-title">
+                  JAVA语言(1)
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://xiahexingkong.github.io/images/avatar.png?v=1667662941869" class="no-responsive avatar">
+    <div class="text-muted">温故而知新，我学ABC!</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/linux-xue-xi-zhi-lu/">Linux学习之路</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-wen-jian-chu-li-lou-dong/">WEB-文件处理漏洞</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-sql-zhu-ru/">WEB-SQL注入 </a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-ji-cheng/">JAVA继承①</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/shu-zu-xiao-ji/">数组小计</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web1/">WEB（1）</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java4/">JAVA语言(4)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java3/">JAVA语言(3)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java/">JAVA语言(2)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-yu-yan/">JAVA语言(1)</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://xiahexingkong.github.io/tag/vQG51Jn_T/" class="badge secondary">
+          JAVA
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/Arbe0nnRP/" class="badge ">
+          CTF
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/V388Fozdg/" class="badge success">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">张猛威</a> | <a class="rss" href="https://xiahexingkong.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '27490f3f7854209c2d01',
+        clientSecret: '91f2cf8a4a88ad7dc948433ca4268f83bfe10be4',
+        repo: 'xiahexingkong.github.io',
+        owner: 'xiahexingkong',
+        admin: ['xiahexingkong'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

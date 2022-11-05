@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>JAVA语言(3) | 夏河星空的小站</title>
+<meta name="description" content="温故而知新，我学ABC!">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://xiahexingkong.github.io/favicon.ico?v=1667662941869">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://xiahexingkong.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://xiahexingkong.github.io">夏河星空的小站</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>JAVA语言(3)</h1>
+            <p class="article-meta">
+              2022-01-29
+              
+                <a href="https://xiahexingkong.github.io/tag/vQG51Jn_T/" class="badge secondary">
+                  JAVA
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>⭐️使用对象：字符类型，包裹类型，MATH类</p>
+<!-- more -->
+<p>字符类型<br>
+单个字符类型:char<br>
+用单引号表示的字符字面量(?)：'a','1'<br>
+Java使用Unicode来表示字符（包括汉字）<br>
+例：</p>
+<pre><code>char c='A';//char c='\u0041';char c=65;//三种表示'A'
+c++;//'A'字符加一个数字得到Unicode码表后一个字符'B'
+System.out.println(c);
+char d='D';
+int i=d-c;//i='Z'-'A';//两个字符的减得到他们在码表中的距离
+System.out.print(d-c);
+//
+</code></pre>
+<p>字符大小(Unicode编号顺序)：<br>
+0<sub>9A</sub>Za~z<br>
+Z&lt;a<br>
+大小写转换：</p>
+<pre><code>char a='c';//
+char d=(char)(a+'A'-'a');//得到两者间的距离
+//char d=(char)(a+'a'-'A');得到小写字母
+System.out.print(d);//得到大写字母
+</code></pre>
+<p>逃逸字符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">意义</th>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\b</td>
+<td style="text-align:center">回退一格</td>
+<td style="text-align:center">\&quot;</td>
+<td style="text-align:center">双引号</td>
+</tr>
+<tr>
+<td style="text-align:center">\t</td>
+<td style="text-align:center">到下一个表格位</td>
+<td style="text-align:center">\'</td>
+<td style="text-align:center">单引号</td>
+</tr>
+<tr>
+<td style="text-align:center">\n</td>
+<td style="text-align:center">换行</td>
+<td style="text-align:center">\|反斜杠本身</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">\r</td>
+<td style="text-align:center">回车</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">⭐️包裹类型</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">基础类型(初始值)</td>
+<td style="text-align:center">包裹类型</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">:-:</td>
+<td style="text-align:center">:-:</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">boolean(false)</td>
+<td style="text-align:center">Boolean</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">char(空格)</td>
+<td style="text-align:center">Character</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">int(0)</td>
+<td style="text-align:center">Integer🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">double(0.0)</td>
+<td style="text-align:center">Double🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">byte(0)</td>
+<td style="text-align:center">Byte🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">short(0)</td>
+<td style="text-align:center">Short🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">long(0)</td>
+<td style="text-align:center">Long🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">float(0.0)</td>
+<td style="text-align:center">Float🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">BigInteger</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">BigDecmail</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">注：BigInteger，BigDecmail没有对应的的基本类型，主要应用于高精度的运算</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">BigInteger:支持任意精度的整数；</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">BigDecmail支持任意精度带小数点的运算，主要用于金钱上的计算上。</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">带🏵为八大基本类型，但不是对象。</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<pre><code>Interger i=10;//Interger i=new Integer(10);Interger i=new Interger(&quot;10&quot;);
+Interger iii=10;
+int i=iii;//自动打包/解包
+System.out.println(Integer.MAX_VALUE);
+System.out.println(Character.toLowerCase('A'));//将该字符转化为小写
+//toUpperCase(char ch)把字符转化为大写
+//isDigit(char ch)判断字符是不是数字
+//isLetter(char ch)判断字符是不是字母
+//isLetterOrDigit(char ch)判断字符是不是字母或数字
+//isLowerCase(char ch)判断字符是不是小写字母
+//isUpperCase(char ch)判断字符是不是大写字母
+//isWhitespace(char ch)判断字符是不是一种空格
+</code></pre>
+<p>⭐️MATH类</p>
+<pre><code>        //abs（计算绝对值）
+System.out.println(Math.abs(-12));`
+        //pow（幂次运算,浮点型）
+System.out.println(Math.pow(2,3));
+        //random（随机数0~1）
+System.out.println(Math.random());
+        //round（四舍五入）
+System.out.println(10.646);
+</code></pre>
+<p>⭐️字符串<br>
+字符串变量和数组变量类似，它并不存放字符串，不是字符串的所有者，它是字符串的管理者。<br>
+Java的字符串还是一种特殊的“不可变”对象，所有的字符串操作都是产生一个新的字符串，而不是对原来的字符串的修改。</p>
+<pre><code>String s=new String(&quot;hellow&quot;);//字符串对象
+System.out.println(s+word);//字符串连接
+System.out.println(1+2+s);
+System.out.println(s+1+2);//自左向右运算s+12为String
+System.out.println(s+(1+2));
+Scanner in =new Scanner(System.in);
+s=in.next();//仅读取第一个单词（空格形式终止）（空格，tab，换行）
+System.out.println(s);
+s=in.nextLine();//读入一整行
+System.out.println(s);
+        //字符串相同比较:equals()
+s=&quot;abc&quot;;
+System.out.println(s==abc);//比较管理者是否相同
+System.out.print(s.equals(&quot;abc&quot;));//比较内容是否相同
+        //字符串大小比较（编码比较）:compareTo()
+String s1=&quot;abc&quot;;
+String s2=&quot;abcd&quot;;
+System.out.println(s1.compareTo(s2));
+//System.out.println(&quot;abc&quot;.compareTo(s2));
+        //字符串长度：length()
+String name=&quot;hellow&quot;, str1=&quot;one&quot;, str2=&quot;&quot;,str3;
+System.out.println(name);//str1=3,st2=0,str3报错未初始化
+        //访问String中单个字符：charAT()
+System.out.println(s1.charAT(2));//可用for循环遍历（不可for each）
+        //得到子串：substring(n)/substring(b,e)
+System.out.println(s1.substring(1))//从1号位置到最后
+System.out.println(s1.substring(0,2));//[0,2)不包含2
+        //寻找字符串：index0f
+String s1=&quot;asdfasdf&quot;;
+int loc=s1.indexOf('s');
+System.out.println(s1.indexOf('r'));//寻找指定字符位置
+System.out.println(s1.indexOf(&quot;df&quot;));//寻找指定字符串位置
+System.out.println(s1.indexOf('s',loc+1));//从loc+1位置寻找指定字符/串
+        //从右至左寻找
+System.out.println(s1.lastIndexOf('s'));
+System.out.println(s1.lastIndexOf('d',4));
+System.out.println(s1.lastIndexOf('d'));
+        //是否以指定字符串开头/结束
+System.out.println(s1.startsWith(&quot;s&quot;));
+System.out.println(s1.endsWith(&quot;s&quot;));
+        //删除两端空格
+System.out.println(&quot;   afsdf &quot;.trim());
+        //全部字符大写/小写
+System.out.println(s1.toUpperCase());
+System.out.println(s1.toLowerCase());
+        //指定c1换成c2;c1,c2类型一致
+System.out.println(s1.replace(&quot;a&quot;,&quot;wer&quot;));
+        //使用switch-case语句
+String s1=&quot;asd&quot;;
+int loc=s1.indexOf('s');
+switch(s1){
+    case &quot;as&quot;:
+        System.out.println(&quot;选择asd选项；&quot;);
+        break;
+    case &quot;asd&quot;:
+        System.out.println(&quot;选择as选项；&quot;);
+        break;
+}
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://xiahexingkong.github.io/post/java/">
+                <h3 class="post-title">
+                  JAVA语言(2)
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://xiahexingkong.github.io/images/avatar.png?v=1667662941869" class="no-responsive avatar">
+    <div class="text-muted">温故而知新，我学ABC!</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/linux-xue-xi-zhi-lu/">Linux学习之路</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-wen-jian-chu-li-lou-dong/">WEB-文件处理漏洞</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-sql-zhu-ru/">WEB-SQL注入 </a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-ji-cheng/">JAVA继承①</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/shu-zu-xiao-ji/">数组小计</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web1/">WEB（1）</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java4/">JAVA语言(4)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java3/">JAVA语言(3)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java/">JAVA语言(2)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-yu-yan/">JAVA语言(1)</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://xiahexingkong.github.io/tag/vQG51Jn_T/" class="badge warning">
+          JAVA
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/Arbe0nnRP/" class="badge success">
+          CTF
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/V388Fozdg/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">张猛威</a> | <a class="rss" href="https://xiahexingkong.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '27490f3f7854209c2d01',
+        clientSecret: '91f2cf8a4a88ad7dc948433ca4268f83bfe10be4',
+        repo: 'xiahexingkong.github.io',
+        owner: 'xiahexingkong',
+        admin: ['xiahexingkong'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

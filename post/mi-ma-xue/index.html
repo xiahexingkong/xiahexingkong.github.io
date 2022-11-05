@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>密码学(1) | 夏河星空的小站</title>
+<meta name="description" content="温故而知新，我学ABC!">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://xiahexingkong.github.io/favicon.ico?v=1667662941869">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://xiahexingkong.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://xiahexingkong.github.io">夏河星空的小站</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>密码学(1)</h1>
+            <p class="article-meta">
+              2022-01-23
+              
+                <a href="https://xiahexingkong.github.io/tag/Arbe0nnRP/" class="badge warning">
+                  CTF
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>⭐️凯撒密码，维尼吉亚密码，培根密码，猪圈密码，栅栏密码，曲路密码</p>
+<!-- more -->
+<p>🏳️‍🌈凯撒密码<br>
+🏳️替换式加密方式。明文字母按照固定数目n（密钥）向前（或向后）偏移替换后得到密文<br>
+🏁例：AAD，n=3        A-&gt;D，D-&gt;G<br>
+🏴特点：无法对非字母进行加密，长度和加密前2等长<br>
+🏳️‍🌈维吉尼亚密码<br>
+🏳️替换加密方式。明文字母按照与原文等长的周期密钥，一一对应偏移替换加密加密<br>
+🏁例：ATTACK，n=LEMON        密钥形成循环密钥N=LEMONL<br>
+ATTACK<br>
+LEMONL(11,4,12,14,13,11)<br>
+LXFOPV<br>
+🏴特点：密钥有周期性则密文中会出现相同的连续字符串，密钥长度则是其间隔的因数，或者寻找“the“,”I am“之类的特殊单词。<br>
+在线解密：http://atomcated.github.io/Vigenere/<br>
+参考：http://atomcated.github.io/<br>
+🏳️‍🌈培根密码<br>
+🏳️固定替换加密方式。每一位明文字母对应五个英文字母<br>
+🏁<img src="https://xiahexingkong.github.io/post-images/1642923322283.webp" alt="" loading="lazy"><br>
+🏴特点：使用五位两种字母（或是其他符号）表示一个字母<br>
+🏳️‍🌈猪圈密码<br>
+🏳️以格子为基础进行替换的的加密<br>
+加密对照表<br>
+<img src="https://xiahexingkong.github.io/post-images/1642923741866.webp" alt="" loading="lazy"><br>
+<img src="https://xiahexingkong.github.io/post-images/1642923746888.webp" alt="" loading="lazy"><br>
+🏳️‍🌈栅栏密码<br>
+🏳️N型栅栏密码：将明文按照密钥数对明文进行”分栏“<br>
+，一次取出各栏的1,2,3,4等组成加密文。<br>
+🏴W型栅栏密码：将明文按照密钥数一次写成”W“型（W的高度即为密钥数）<br>
+倒S型栅栏密码：将明文按照密钥数依次写成倒”∽“型（∽的高度即为密钥数）<br>
+注：w型的转折处只使用一次，∽的转折处使用两次<br>
+🏳️‍🌈曲路密码<br>
+行列数和路径为加密密钥。将明文按照一定的路径填入指定的行列表格，在按行读取即可得到密文<br>
+<img src="https://xiahexingkong.github.io/post-images/1642926266926.png" alt="" loading="lazy"><br>
+<img src="https://xiahexingkong.github.io/post-images/1642926444410.png" alt="" loading="lazy"><br>
+注：倒S型曲路和倒S栅栏密码形似，也可以是”@“型路径，一般密文数量为矩阵的数量<br>
+参考：CTF中那些脑洞大开的编码和加密<br>
+数组指针与指针数组的区别<br>
+参考：https://www.cnblogs.com/mq0036/p/3382732.html</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://xiahexingkong.github.io/post/bian-ma-xue-xi-2/">
+                <h3 class="post-title">
+                  编码学习(2)
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://xiahexingkong.github.io/images/avatar.png?v=1667662941869" class="no-responsive avatar">
+    <div class="text-muted">温故而知新，我学ABC!</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/linux-xue-xi-zhi-lu/">Linux学习之路</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-wen-jian-chu-li-lou-dong/">WEB-文件处理漏洞</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web-sql-zhu-ru/">WEB-SQL注入 </a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-ji-cheng/">JAVA继承①</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/shu-zu-xiao-ji/">数组小计</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/web1/">WEB（1）</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java4/">JAVA语言(4)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java3/">JAVA语言(3)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java/">JAVA语言(2)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://xiahexingkong.github.io/post/java-yu-yan/">JAVA语言(1)</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://xiahexingkong.github.io/tag/vQG51Jn_T/" class="badge warning">
+          JAVA
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/Arbe0nnRP/" class="badge secondary">
+          CTF
+        </a>
+      
+        <a href="https://xiahexingkong.github.io/tag/V388Fozdg/" class="badge ">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">张猛威</a> | <a class="rss" href="https://xiahexingkong.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '27490f3f7854209c2d01',
+        clientSecret: '91f2cf8a4a88ad7dc948433ca4268f83bfe10be4',
+        repo: 'xiahexingkong.github.io',
+        owner: 'xiahexingkong',
+        admin: ['xiahexingkong'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
